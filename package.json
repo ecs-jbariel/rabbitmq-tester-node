@@ -1,0 +1,24 @@
+{
+  "name": "rabbitmq-tester",
+  "version": "1.0.0",
+  "description": "test rabbitMQ from the consumer or producer side",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jarrett Bariel <jbariel@ecsteam.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ecs-jbariel/rabbitmq-tester-node"
+  },
+  "bugs": {
+    "email": "jbariel@ecsteam.com",
+    "url": "https://github.com/ecs-jbariel/rabbitmq-tester-node/issues"
+  },
+  "license": "Apache 2.0",
+  "private": true,
+  "dependencies": {
+    "amqplib": "^0.4.2",
+    "xtend": "^4.0.1"
+  }
+}
