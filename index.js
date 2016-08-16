@@ -11,7 +11,7 @@ extend = require("xtend");
 
 var connection = require('./connection');
 var send = require('./send');
-var recieve = require('./recieve');
+var receive = require('./receive');
 
 var _connParams = {};
 _connParams.protocol = (process.env.CONN_PROTOCOL) ? process.env.CONN_PROTOCOL : 'amqp';
@@ -33,6 +33,6 @@ connection.connect(_connParams, function (channel, queue) {
 
     if (_CONSUMER) {
         O.i("Creating consumer...");
-        recieve.start(channel,queue);
+        receive.start(channel,queue);
     }
 });
