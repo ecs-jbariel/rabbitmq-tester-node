@@ -3,16 +3,8 @@ var amqp = require('amqplib');
 var __consumerChannel;
 var __producerChannel;
 
-function connect(params, callback) {
-    O.d("Using params: '" + JSON.stringify(params) + "'");
-
-    var authStr = ((params.username && params.password) ? params.username + ':' + params.password + '@' : '');
-    O.d("Auth string: '" + authStr + "'");
-
-    var connStr = params.protocol + '://' + authStr + params.host + ((params.port) ? ':' + params.port : '') + ((params.vHost) ? '/' + params.vHost : '');
-    O.d("Connection string: '" + connStr + "'");
-
-    var myConn = amqp.connect(connStr + '?heartbeat=5')
+function connect(connectionString, callback) {
+    var myConn = amqp.connect(connectionString + '?heartbeat=5')
     myConn.then(function (conn) {
         process.once('SIGINT', conn.close.bind(conn));
         O.i("Connected to RabbitMQ!!!");
@@ -27,14 +19,19 @@ function connect(params, callback) {
     });
 }
 
-function generateConnectionString(params, username, password) {
+function generateConnectionString(params, isConsumer) {
+    var username = (isConsumer) ? params.consumerUsername : params.producerUsername;
+    var password = (isConsumer) ? params.consumerPassword : params.producerPassword;
+
     O.d("Using params: '" + JSON.stringify(params) + "'");
 
-    var authStr = ((params.username && params.password) ? params.username + ':' + params.password + '@' : '');
+    var authStr = ((username && password) ? username + ':' + password + '@' : '');
     O.d("Auth string: '" + authStr + "'");
 
     var connStr = params.protocol + '://' + authStr + params.host + ((params.port) ? ':' + params.port : '') + ((params.vHost) ? '/' + params.vHost : '');
     O.d("Connection string: '" + connStr + "'");
+
+    return connStr;
 }
 
 function connectConsumer(params, callback) {
@@ -45,7 +42,7 @@ function connectConsumer(params, callback) {
             callback(__consumerChannel, params.queue);
         }
         else {
-            connect(params, function (channel) {
+            connect(generateConnectionString(params, true), function (channel) {
                 __consumerChannel = channel;
                 callback(__consumerChannel, params.queue);
             });
@@ -64,7 +61,7 @@ function connectProducer(params, callback) {
             callback(__producerChannel, params.queue);
         }
         else {
-            connect(params, function (channel) {
+            connect(generateConnectionString(params, false), function (channel) {
                 __producerChannel = channel;
                 callback(__producerChannel, params.queue);
             });
@@ -76,8 +73,6 @@ function connectProducer(params, callback) {
 }
 
 function producerAndConsumerAreSameUser(params) {
-    var un = params.username;
-    var pw = params.password;
     var cUn = params.consumerUsername;
     var cPw = params.consumerPassword;
     var pUn = params.producerUsername;

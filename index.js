@@ -28,24 +28,21 @@ try {
 
 O.d("Params from file: '" + JSON.stringify(fileConnParams) + "'");
 
-var _connParams = {};
-_connParams.protocol = (process.env.CONN_PROTOCOL) ? process.env.CONN_PROTOCOL : 'amqp';
-_connParams.host = (process.env.CONN_HOST) ? process.env.CONN_HOST : 'localhost';
-_connParams.port = (process.env.CONN_PORT) ? process.env.CONN_PORT : '5672';
-_connParams.vHost = (process.env.CONN_VHOST) ? process.env.CONN_VHOST : '';
-_connParams.username = (process.env.CONN_USER) ? process.env.CONN_USER : '';
-_connParams.password = (process.env.CONN_PASSWORD) ? process.env.CONN_PASSWORD : '';
-_connParams.queue = (process.env.CONN_QUEUE) ? process.env.CONN_QUEUE : '';
-_connParams.producerUsername = (process.env.CONN_PRODUCER_USER) ? process.env.CONN_PRODUCER_USER : '';
-_connParams.producerPassword = (process.env.CONN_PRODUCER_PASSWORD) ? process.env.CONN_PRODUCER_PASSWORD : '';
-_connParams.consumerUsername = (process.env.CONN_CONSUMER_USER) ? process.env.CONN_CONSUMER_USER : '';
-_connParams.consumerPassword = (process.env.CONN_CONSUMER_PASSWORD) ? process.env.CONN_CONSUMER_PASSWORD : '';
-_connParams.producer = process.env.PRODUCER || false;
-_connParams.consumer = process.env.CONSUMER || false;
+var defaultConnectionParams = {
+    "protocol": "amqp",
+    "host": "localhost",
+    "port": "5672",
+    "vHost": "",
+    "queue": "",
+    "producerUsername": "",
+    "producerPassword": "",
+    "consumerUsername": "",
+    "consumerPassword": "",
+    "producer": "false",
+    "consumer": "false"
+};
 
-O.d("Params from env: '" + JSON.stringify(_connParams) + "'");
-
-var params = extend(_connParams,fileConnParams);
+var params = extend(defaultConnectionParams, fileConnParams);
 O.d("Final params: '" + JSON.stringify(params) + "'");
 
 connection.connectProducer(params, function (channel, queue) {
