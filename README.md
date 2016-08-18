@@ -5,13 +5,16 @@ NodeJS Producer/Consumer for RabbitMQ.
 Clone the repo, and run `npm install` to get the dependencies.
 
 # Usage
-This uses file based JSON parameters to conenct to a RabbitMQ instance.  To see an example file, you can view [props.json.example](..\props.json.example)
+This uses file based JSON parameters to conenct to a RabbitMQ instance.  To see an example file, you can view [props.json.example](props.json.example)
 
 Additional parameters can be provided via the environment.
 
 For example, if you want to see trace level logging, you would run (cygwin/unix):
+
 `DO_TRACE=true node index.js`
+
 or (cmd on Windows):
+
 `
 set DO_TRACE=true
 node index.js
