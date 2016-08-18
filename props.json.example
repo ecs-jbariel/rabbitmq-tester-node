@@ -1,0 +1,15 @@
+{
+  "protocol": "amqp",
+  "host": "localhost",
+  "port": "5672",
+  "vHost": "",
+  "username": "",
+  "password": "",
+  "queue": "",
+  "producerUsername": "",
+  "producerPassword": "",
+  "consumerUsername": "",
+  "consumerPassword": "",
+  "producer": "false",
+  "consumer": "false"
+}

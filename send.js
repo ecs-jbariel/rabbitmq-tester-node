@@ -12,7 +12,7 @@ function sendMessage(channel, queue) {
             O.d('Message acked');
         }
     });
-    O.d("Sent message...");
+    O.i(" Sent message...");
     setTimeout(function () { sendMessage(channel, queue) }, 1000);
 }
 
