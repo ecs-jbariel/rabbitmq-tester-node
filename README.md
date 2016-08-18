@@ -26,4 +26,4 @@ The full list of parameters are:
 * `PROPS=<path-to-json-properties-file>` :: Property file location ([see example](props.json.example)) (default: `props.json`)
 
 # Issues
-Please use the [Issues tab](../../rabbitmq-tester-node/issues) to report any problems or feature requests.
+Please use the [Issues tab](../../issues) to report any problems or feature requests.
